@@ -20,6 +20,9 @@ header {
     z-index: 1000; 
 }
 
+section {
+    margin-top: 100px;
+}
 header h1 {
     position: fixed;
     top: 0;
