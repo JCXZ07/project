@@ -1,1 +1,137 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+    background: #f4f4f4;
+    overflow-x: hidden;
+}
+header {
+    background: rgb(9, 9, 44);
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0;
+    animation: slideInDown 1s ease-out;
+}
+header h1 {
+    margin: 0;
+    font-size: 3rem;
+    transition: color 0.3s ease;
+}
+header h1:hover {
+    color: #ffcc00;
+}
+nav {
+    margin-top: 1rem;
+}
+nav a {
+    color: #fff;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+nav a:hover {
+    transform: scale(1.1);
+}
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    animation: fadeIn 2s ease-out;
+}
+.about, .projects, .contact {
+    margin-bottom: 3rem;
+}
+h2 {
+    font-size: 2.5rem;
+    color: #444;
+    margin-bottom: 1rem;
+    position: relative;
+}
+h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #1e90ff;
+    margin-top: 5px;
+    animation: slideInLeft 1s ease-out;
+}
+.projects .project {
+    margin-bottom: 2rem;
+    animation: zoomIn 1.5s ease-out;
+}
+.projects .project img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    animation: slideInUp 1s ease-out;
+}
+footer p {
+    margin: 0;
+}
 
+/* Animations */
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
