@@ -9,19 +9,6 @@ header {
     animation: slideInDown 1s ease-out;
     z-index: 1000; 
 }
-h1 {
-    position: fixed;
-    top: 0;
-        width: 100%;
-}
-nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-}
-div {
-    margin-top: 100px;
-}
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
