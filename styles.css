@@ -8,6 +8,7 @@ body {
     overflow-x: hidden;
 }
 header {
+    position: fixed;
     background: rgb(9, 9, 44);
     color: #fff;
     text-align: center;
