@@ -7,7 +7,7 @@ header {
     text-align: center;
     padding: 2rem 0;
     animation: slideInDown 1s ease-out;
-    z-index: 1000; /* Ensure the header is above other elements */
+    z-index: 1000; 
 }
 h1 {
     position: fixed;
@@ -17,7 +17,12 @@ h1 {
 nav {
     position: fixed;
     top: 0;
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0;
+    animation: slideInDown 1s ease-out;
     z-index: 1000;
+    
 }
 div {
     margin-top: 100px;
