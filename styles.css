@@ -12,10 +12,12 @@ header {
 h1 {
     position: fixed;
     top: 0;
+    z-index: 1000;
 }
 nav {
     position: fixed;
     top: 0;
+    z-index: 1000;
 }
 body {
     font-family: 'Roboto', sans-serif;
