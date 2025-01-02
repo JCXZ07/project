@@ -1,1 +1,143 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore My Work</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1DB954;
+            --secondary-color: #121212;
+            --accent-color: #BB86FC;
+            --background-color: #181818;
+            --text-color: #E1E1E1;
+            --font-family: 'Inter', sans-serif;
+            --transition-time: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--text-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-weight: 800;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            margin-left: 1rem;
+            transition: color var(--transition-time);
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .projects {
+            padding: 8rem 2rem 2rem; /* Increased top padding to accommodate fixed header */
+        }
+
+        .projects h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .project {
+            background-color: var(--secondary-color);
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .project h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .project p {
+            margin-bottom: 1rem;
+        }
+
+        .project a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color var(--transition-time);
+        }
+
+        .project a:hover {
+            color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin-top: 2rem;
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Explore My Work</h1>
+        <nav>
+            <a href="index.html">Back to Home</a>        
+        </nav>
+    </header>
+
+    <section class="projects">
+        <h2>My Projects</h2>
+        <div class="project">
+            <h3>Project One</h3>
+            <p>SQUIDY GAMES</p>
+            <a href="#">View Project</a>
+        </div>
+        <div class="project">
+            <h3>Project Two</h3>
+            <p>BANGBANGBANG</p>
+            <a href="#">View Project</a>
+        </div>
+        <div class="project">
+            <h3>Project Three</h3>
+            <p>NIGHTCROWS???</p>
+            <a href="#">View Project</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 JCJCJCJCJCJCJCJC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
