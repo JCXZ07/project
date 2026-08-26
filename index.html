@@ -1,23 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentines?</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Sandra Lee Bonsubre Estabillo</h1>
-        <h2>Will you be my Valentine?❤️</h2>
-        <div class="buttons">
-            <button class="yes-button" onclick="handleYesClick()">Yes</button>
-            <button class="no-button" onclick="handleNoClick()">No</button>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Valentine Letter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Envelope Screen -->
+    <div id="envelope-container">
+      <img src="envelope.png" alt="Envelope" id="envelope" />
+      <p>♡ Letter for You ♡</p>
+    </div>
+
+    <!-- Letter Screen -->
+    <div id="letter-container">
+      <div class="letter-window">
+        <h1 id="letter-title">Will you be my Valentine?</h1>
+
+        <img src="cat_heart.gif" class="cat" id="letter-cat" />
+
+        <div class="buttons" id="letter-buttons">
+          <img src="yes.png" class="btn yes-btn" alt="Yes" />
+
+          <div class="no-wrapper">
+            <img src="no.png" class="btn no-btn" alt="No" />
+          </div>
         </div>
-        <div class="gif_container">
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute GIF">
-        </div>
+
+        <p id="final-text" class="final-text" style="display: none">
+          <strong>Valentine Date:</strong> Meow Restaurant at 7pm. Dress fancy!
+        </p>
+      </div>
     </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
