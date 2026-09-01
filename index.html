@@ -1,44 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Valentine Letter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Letter for You</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- PageFlip Library CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+</head>
+<body>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap"
-      rel="stylesheet"
-    />
-    <title>Document</title>
-  </head>
-  <body>
-    <!-- Envelope Screen -->
-    <div id="envelope-container">
-      <img src="envelope.png" alt="Envelope" id="envelope" width="800" height="300" />
-      <p>Letter for Cristina Palamara</p>
-    </div>
-
-    <!-- Letter Screen -->
-    <div id="letter-container">
-      <div class="letter-window">
-        <h1 id="letter-title">Project: You</h1>
-
-        <div class="buttons" id="letter-buttons">
-          <img src="yes.png" class="btn yes-btn" alt=">" />
-
-          <div class="no-wrapper">
-            <img src="no.png" class="btn no-btn" alt="No" />
-          </div>
+  <div class="container">
+    <div id="book">
+      
+      <!-- Cover -->
+      <div class="page page-cover" data-density="hard">
+        <div class="page-content">
+          <h2>For My Favorite Person</h2>
+          <p>Tap to open ♥</p>
         </div>
-
-        <p id="final-text" class="final-text" style="display: none">
-          <strong>Valentine Date:</strong> Meow Restaurant at 7pm. Dress fancy!
-        </p>
       </div>
+
+      <!-- Page 1 -->
+      <div class="page">
+        <div class="page-content">
+          <p class="letter-text">
+            My dearest,<br><br>
+            I wanted to create something small to remind you how much you mean to me...
+          </p>
+        </div>
+      </div>
+
+      <!-- Page 2 -->
+      <div class="page">
+        <div class="page-content">
+          <p class="letter-text">
+            Every day with you feels like a quiet blessing. Thank you for being my light, my laugh, and my home.
+          </p>
+        </div>
+      </div>
+
+      <!-- Back Cover -->
+      <div class="page page-cover" data-density="hard">
+        <div class="page-content">
+          <h3>Forever Yours,</h3>
+          <p>♥</p>
+        </div>
+      </div>
+
     </div>
-    <script src="script.js"></script>
-  </body>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
