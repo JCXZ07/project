@@ -34,10 +34,6 @@
       padding: 40px 20px;
       overflow-x: hidden;
       position: relative;
-      <audio controls>
-  <source src="mysong.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
     }
 
     /* Particle Canvas */
@@ -137,6 +133,23 @@
       margin: 4px 0;
     }
 
+    /* Audio Player Styling */
+    .audio-wrapper {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    audio {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+      border-radius: 20px;
+      outline: none;
+      filter: invert(0.9) hue-rotate(180deg) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    }
+
     /* Subtle Keyframe Animations */
     @keyframes fadeInUp {
       from {
@@ -156,7 +169,7 @@
 
     @keyframes pulseDawn {
       0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-      100% { opacity: 0.9; transform: translateX(-50%) scale(1.08); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
     }
 
     /* Mobile Responsive */
@@ -210,6 +223,16 @@
       <p class="paragraph-6">
         So here is to the dawn, and here is to us—different now, yet somehow entirely unchanged at the core. May your path ahead be bright, knowing that somewhere out there, a quiet corner of my world will always be rooting for you.
       </p>
+
+      <div class="divider"></div>
+
+      <!-- Standard audio player with play/pause controls -->
+      <div class="audio-wrapper">
+        <audio controls>
+          <source src="mysong.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
     </div>
   </main>
 
