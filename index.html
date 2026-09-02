@@ -31,7 +31,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 40px 20px;
       overflow-x: hidden;
       position: relative;
     }
@@ -75,7 +75,7 @@
 
     /* Main Container */
     .container {
-      max-width: 680px;
+      max-width: 720px;
       width: 100%;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -89,29 +89,49 @@
       animation: fadeInUp 2s ease-out;
     }
 
-    /* Audio Toggle Button */
-    .audio-btn {
+    /* Music Player Widget */
+    .music-widget {
       position: absolute;
       top: 24px;
       right: 24px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-color);
-      color: var(--text-muted);
       padding: 8px 14px;
       border-radius: 20px;
-      font-size: 0.8rem;
-      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
+      gap: 10px;
       backdrop-filter: blur(8px);
     }
 
-    .audio-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
+    .music-info {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .music-btn {
+      background: none;
+      border: none;
       color: var(--text-main);
-      border-color: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Hidden YouTube iframe for background audio playback */
+    .hidden-player {
+      display: none;
     }
 
     /* Typography & Content Layout */
@@ -119,25 +139,20 @@
       display: flex;
       flex-direction: column;
       gap: 32px;
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     p {
       font-family: var(--font-serif);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       line-height: 1.85;
       color: var(--text-main);
       font-weight: 400;
       letter-spacing: 0.01em;
-      transition: opacity 0.5s ease;
-    }
-
-    .paragraph-1 {
-      opacity: 0.95;
     }
 
     .paragraph-2 {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       color: var(--text-muted);
       font-style: italic;
       padding-left: 20px;
@@ -151,11 +166,17 @@
       font-weight: 500;
     }
 
+    .paragraph-6 {
+      color: var(--sunrise);
+      font-style: italic;
+      font-size: 1.15rem;
+    }
+
     .divider {
       width: 40px;
       height: 1px;
       background: var(--border-color);
-      margin: 8px 0;
+      margin: 4px 0;
     }
 
     /* Subtle Keyframe Animations */
@@ -183,17 +204,17 @@
     /* Mobile Responsive */
     @media (max-width: 600px) {
       .container {
-        padding: 44px 24px 36px 24px;
+        padding: 44px 20px 36px 20px;
       }
       p {
-        font-size: 1.1rem;
-      }
-      .paragraph-2 {
         font-size: 1.05rem;
       }
-      .audio-btn {
+      .music-widget {
         top: 16px;
         right: 16px;
+      }
+      .music-info {
+        display: none;
       }
     }
   </style>
@@ -208,12 +229,21 @@
   <div class="glow-dawn"></div>
 
   <main class="container">
-    <button class="audio-btn" id="audioToggle">
-      <span id="audioIcon">✨</span> <span id="audioText">Ambient Audio</span>
-    </button>
+    <!-- Music Player Widget -->
+    <div class="music-widget">
+      <div class="music-info">Ne-Yo - Never Knew I Needed</div>
+      <button class="music-btn" id="toggleMusic" title="Play/Pause Music">
+        <span id="playIcon">▶</span>
+      </button>
+    </div>
+
+    <!-- Hidden YouTube Player for Ne-Yo - Never Knew I Needed -->
+    <div class="hidden-player" id="playerContainer">
+      <iframe id="ytPlayer" width="200" height="200" src="https://www.youtube.com/embed/5Uj8XkXb0_Y?enablejsapi=1&loop=1&playlist=5Uj8XkXb0_Y" frameborder="0"></iframe>
+    </div>
 
     <div class="poem-section">
-      <p class="paragraph-1">
+      <p>
         You were the moonlight that lit up the ordinary summer nights. Wherever we went, your presence made even the oldest ruins feel somewhat cozy to sit on for hours while I just listen to you talk. Trails of happiness and love followed my steps whenever I was with you.
       </p>
 
@@ -227,6 +257,20 @@
 
       <p class="paragraph-3">
         As our moon hides in the coming of dawn, the sunrise symbolizes a new chapter, you and I; not forcing anything anymore as we form a truer bond not as lovers but as mere friends.
+      </p>
+
+      <div class="divider"></div>
+
+      <p>
+        It took time for the silence between us to feel less like an empty space and more like a quiet, comforting understanding. We eventually stopped trying to fit square pegs into round hearts, gracefully releasing the heavy expectations that once strained our laughter.
+      </p>
+
+      <p>
+        If you asked me today whether I'd trade those cold stone steps or the late-night talks under flickering streetlights, my answer would always be no. Every single memory remains securely etched into who I am, proof that even fleeting things can leave behind a permanent warmth.
+      </p>
+
+      <p class="paragraph-6">
+        So here is to the dawn, and here is to us—different now, yet somehow entirely unchanged at the core. May your path ahead be bright, knowing that somewhere out there, a quiet corner of my world will always be rooting for you.
       </p>
     </div>
   </main>
@@ -304,58 +348,40 @@
     }
     animateParticles();
 
-    /* --- Procedural Ambient Audio Generator (Web Audio API) --- */
-    let audioCtx = null;
+    /* --- YouTube IFrame API Integration for Background Music --- */
+    let tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    let firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    let player;
     let isPlaying = false;
-    let timer = null;
 
-    const chords = [220, 277.18, 329.63, 440, 554.37]; // Soft A Major 7th pentatonic notes
-
-    function playSoftChime() {
-      if (!audioCtx) return;
-
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      const freq = chords[Math.floor(Math.random() * chords.length)];
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-      gain.gain.setValueAtTime(0, audioCtx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 2);
-      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 6);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start();
-      osc.stop(audioCtx.currentTime + 6.1);
+    window.onYouTubeIframeAPIReady = function() {
+      player = new YT.Player('ytPlayer', {
+        events: {
+          'onReady': () => {
+            document.getElementById('toggleMusic').addEventListener('click', togglePlay);
+          }
+        }
+      });
     }
 
-    document.getElementById('audioToggle').addEventListener('click', () => {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-
-      isPlaying = !isPlaying;
-      const audioText = document.getElementById('audioText');
-      const audioIcon = document.getElementById('audioIcon');
-
+    function togglePlay() {
+      if (!player) return;
+      
+      const playIcon = document.getElementById('playIcon');
+      
       if (isPlaying) {
-        audioText.textContent = 'Mute Audio';
-        audioIcon.textContent = '🔊';
-        playSoftChime();
-        timer = setInterval(playSoftChime, 3200);
+        player.pauseVideo();
+        playIcon.textContent = '▶';
+        isPlaying = false;
       } else {
-        audioText.textContent = 'Ambient Audio';
-        audioIcon.textContent = '✨';
-        clearInterval(timer);
+        player.playVideo();
+        playIcon.textContent = '❚❚';
+        isPlaying = true;
       }
-    });
+    }
   </script>
 </body>
 </html>
