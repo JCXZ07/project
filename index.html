@@ -89,57 +89,11 @@
       animation: fadeInUp 2s ease-out;
     }
 
-    /* Music Player Widget */
-    .music-widget {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-color);
-      padding: 8px 14px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      backdrop-filter: blur(8px);
-    }
-
-    .music-info {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      max-width: 150px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .music-btn {
-      background: none;
-      border: none;
-      color: var(--text-main);
-      cursor: pointer;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s ease;
-    }
-
-    .music-btn:hover {
-      transform: scale(1.1);
-    }
-
-    /* Hidden YouTube iframe for background audio playback */
-    .hidden-player {
-      display: none;
-    }
-
     /* Typography & Content Layout */
     .poem-section {
       display: flex;
       flex-direction: column;
       gap: 32px;
-      margin-top: 15px;
     }
 
     p {
@@ -209,13 +163,6 @@
       p {
         font-size: 1.05rem;
       }
-      .music-widget {
-        top: 16px;
-        right: 16px;
-      }
-      .music-info {
-        display: none;
-      }
     }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -229,19 +176,6 @@
   <div class="glow-dawn"></div>
 
   <main class="container">
-    <!-- Music Player Widget -->
-    <div class="music-widget">
-      <div class="music-info">Ne-Yo - Never Knew I Needed</div>
-      <button class="music-btn" id="toggleMusic" title="Play/Pause Music">
-        <span id="playIcon">▶</span>
-      </button>
-    </div>
-
-    <!-- Hidden YouTube Player for Ne-Yo - Never Knew I Needed -->
-    <div class="hidden-player" id="playerContainer">
-      <iframe id="ytPlayer" width="200" height="200" src="https://www.youtube.com/embed/5Uj8XkXb0_Y?enablejsapi=1&loop=1&playlist=5Uj8XkXb0_Y" frameborder="0"></iframe>
-    </div>
-
     <div class="poem-section">
       <p>
         You were the moonlight that lit up the ordinary summer nights. Wherever we went, your presence made even the oldest ruins feel somewhat cozy to sit on for hours while I just listen to you talk. Trails of happiness and love followed my steps whenever I was with you.
@@ -347,41 +281,6 @@
       requestAnimationFrame(animateParticles);
     }
     animateParticles();
-
-    /* --- YouTube IFrame API Integration for Background Music --- */
-    let tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    let firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    let player;
-    let isPlaying = false;
-
-    window.onYouTubeIframeAPIReady = function() {
-      player = new YT.Player('ytPlayer', {
-        events: {
-          'onReady': () => {
-            document.getElementById('toggleMusic').addEventListener('click', togglePlay);
-          }
-        }
-      });
-    }
-
-    function togglePlay() {
-      if (!player) return;
-      
-      const playIcon = document.getElementById('playIcon');
-      
-      if (isPlaying) {
-        player.pauseVideo();
-        playIcon.textContent = '▶';
-        isPlaying = false;
-      } else {
-        player.playVideo();
-        playIcon.textContent = '❚❚';
-        isPlaying = true;
-      }
-    }
   </script>
 </body>
 </html>
