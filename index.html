@@ -3,19 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moonlight & Dawn</title>
+  <title>Reverence</title>
   <style>
-    :root {
-      --bg-color: #0b0c10;
-      --card-bg: rgba(255, 255, 255, 0.035);
-      --border-color: rgba(255, 255, 255, 0.08);
-      --text-main: #e2e8f0;
-      --text-muted: #94a3b8;
-      --moonlight: #e0e8f6;
-      --sunrise: #ffb380;
-      --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300&display=swap');
 
     * {
       box-sizing: border-box;
@@ -24,290 +14,261 @@
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: var(--font-sans);
+      background-color: #0b0c10;
+      background-image: radial-gradient(circle at center, #1a1c24 0%, #08080a 100%);
+      color: #e2e2e8;
+      font-family: 'Cormorant Garamond', serif;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
-      overflow-x: hidden;
-      position: relative;
+      overflow: hidden;
+      perspective: 1000px;
     }
 
-    /* Particle Canvas */
-    canvas#particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* Ambient Glow Background Effects */
-    .glow-moon {
-      position: fixed;
-      top: -10%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(224, 232, 246, 0.09) 0%, rgba(11, 12, 16, 0) 70%);
-      pointer-events: none;
+    /* Ambient background glow */
+    .glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(138, 122, 156, 0.15) 0%, rgba(0,0,0,0) 70%);
       border-radius: 50%;
-      animation: pulseMoon 8s ease-in-out infinite alternate;
-    }
-
-    .glow-dawn {
-      position: fixed;
-      bottom: -10%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 750px;
-      height: 450px;
-      background: radial-gradient(ellipse, rgba(255, 179, 128, 0.07) 0%, rgba(11, 12, 16, 0) 70%);
       pointer-events: none;
-      animation: pulseDawn 10s ease-in-out infinite alternate;
+      animation: pulse 8s ease-in-out infinite alternate;
     }
 
-    /* Main Container */
-    .container {
-      max-width: 720px;
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 60px 48px;
-      border-radius: 16px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 0.5; }
+      100% { transform: scale(1.2); opacity: 0.9; }
+    }
+
+    /* Book Container */
+    .book-container {
       position: relative;
-      z-index: 1;
-      animation: fadeInUp 2s ease-out;
+      width: 340px;
+      height: 480px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.03);
+      border-radius: 4px;
+      background: rgba(20, 21, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      user-select: none;
     }
 
-    /* Typography & Content Layout */
-    .poem-section {
+    /* Pages Stack */
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 40px 30px;
       display: flex;
       flex-direction: column;
-      gap: 32px;
-    }
-
-    p {
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      line-height: 1.85;
-      color: var(--text-main);
-      font-weight: 400;
-      letter-spacing: 0.01em;
-    }
-
-    .paragraph-2 {
-      font-size: 1.12rem;
-      color: var(--text-muted);
-      font-style: italic;
-      padding-left: 20px;
-      border-left: 2px solid rgba(224, 232, 246, 0.25);
-    }
-
-    .paragraph-3 {
-      background: linear-gradient(135deg, var(--moonlight) 0%, var(--sunrise) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 500;
-    }
-
-    .paragraph-6 {
-      color: var(--sunrise);
-      font-style: italic;
-      font-size: 1.15rem;
-    }
-
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--border-color);
-      margin: 4px 0;
-    }
-
-    /* Audio Player Styling */
-    .audio-wrapper {
-      margin-top: 12px;
-      display: flex;
       justify-content: center;
-      width: 100%;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: rotateY(-10deg) scale(0.95);
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                  transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  visibility 1.2s;
     }
 
-    audio {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-      border-radius: 20px;
-      outline: none;
-      filter: invert(0.9) hue-rotate(180deg) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    .page.active {
+      opacity: 1;
+      visibility: visible;
+      transform: rotateY(0deg) scale(1);
     }
 
-    /* Subtle Keyframe Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Text Formatting */
+    .quote {
+      font-size: 1.35rem;
+      font-weight: 300;
+      line-height: 1.8;
+      letter-spacing: 0.03em;
+      color: #dcdbe5;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      white-space: pre-line;
     }
 
-    @keyframes pulseMoon {
-      0% { opacity: 0.6; transform: translateX(-50%) scale(0.98); }
-      100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+    .date {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      color: #8a8899;
+      margin-bottom: 20px;
+      text-transform: uppercase;
     }
 
-    @keyframes pulseDawn {
-      0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-      100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+    /* Navigation Hint */
+    .hint {
+      position: absolute;
+      bottom: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      pointer-events: none;
+      animation: fadeInOut 3s infinite;
     }
 
-    /* Mobile Responsive */
-    @media (max-width: 600px) {
-      .container {
-        padding: 44px 20px 36px 20px;
-      }
-      p {
-        font-size: 1.05rem;
-      }
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.6; }
+    }
+
+    /* Page Counter */
+    .counter {
+      position: absolute;
+      top: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.2);
     }
   </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <canvas id="particles"></canvas>
-  <div class="glow-moon"></div>
-  <div class="glow-dawn"></div>
+  <div class="glow"></div>
 
-  <main class="container">
-    <div class="poem-section">
-      <p>
-        You were the moonlight that lit up the ordinary summer nights. Wherever we went, your presence made even the oldest ruins feel somewhat cozy to sit on for hours while I just listen to you talk. Trails of happiness and love followed my steps whenever I was with you.
-      </p>
+  <!-- Audio Element: Replace the src link with your desired MP3 file -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="https://assets.mixkit.co/music/preview/mixkit-sad-reflective-piano-1126.mp3" type="audio/mpeg">
+  </audio>
 
-      <div class="divider"></div>
+  <div class="book-container" id="book">
+    <div class="counter" id="counter">1 / 15</div>
 
-      <p class="paragraph-2">
-        Holding your delicate hand made me realize that I want to protect you, but I failed.
-      </p>
-
-      <div class="divider"></div>
-
-      <p class="paragraph-3">
-        As our moon hides in the coming of dawn, the sunrise symbolizes a new chapter, you and I; not forcing anything anymore as we form a truer bond not as lovers but as mere friends.
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        It took time for the silence between us to feel less like an empty space and more like a quiet, comforting understanding. We eventually stopped trying to fit square pegs into round hearts, gracefully releasing the heavy expectations that once strained our laughter.
-      </p>
-
-      <p>
-        If you asked me today whether I'd trade those cold stone steps or the late-night talks under flickering streetlights, my answer would always be no. Every single memory remains securely etched into who I am, proof that even fleeting things can leave behind a permanent warmth.
-      </p>
-
-      <p class="paragraph-6">
-        So here is to the dawn, and here is to us—different now, yet somehow entirely unchanged at the core. May your path ahead be bright, knowing that somewhere out there, a quiet corner of my world will always be rooting for you.
-      </p>
-
-      <div class="divider"></div>
-
-      <!-- Standard audio player with play/pause controls -->
-      <div class="audio-wrapper">
-        <audio controls>
-          <source src="mysong.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
+    <!-- Page 1 -->
+    <div class="page active">
+      <div class="date">17 / 09 / 26</div>
     </div>
-  </main>
+
+    <!-- Page 2 -->
+    <div class="page">
+      <div class="quote">If you find this far in the future, i left<br>this was my reverence.<br><br><i>dearest, xina</i></div>
+    </div>
+
+    <!-- Page 3 -->
+    <div class="page">
+      <div class="quote">There may come a morning<br>when the ghost of my touch<br>will linger on your skin</div>
+    </div>
+
+    <!-- Page 4 -->
+    <div class="page">
+      <div class="quote">When your hands may reach<br>and closes on air and dust</div>
+    </div>
+
+    <!-- Page 5 -->
+    <div class="page">
+      <div class="quote">I will be the past rooms and spaces where our feelings and moments are stored,<br><br>the hallways, paths, and roads that we walked together,<br><br>the final quiet rest when a voice no longer answers back</div>
+    </div>
+
+    <!-- Page 6 -->
+    <div class="page">
+      <div class="quote">Like being far beneath your feet, I am resting quietly and blankly, covered by the passage of time i am a dormant seed</div>
+    </div>
+
+    <!-- Page 7 -->
+    <div class="page">
+      <div class="quote">Do not find me to validate our past. You are the evidence.<br><br>There are things your hands remember simply because they once knew the name of mine</div>
+    </div>
+
+    <!-- Page 8 -->
+    <div class="page">
+      <div class="quote">To live is to carry the ghosts of people who are still breathing.</div>
+    </div>
+
+    <!-- Page 9 -->
+    <div class="page">
+      <div class="quote">If i wake again, tell me everything you've been through</div>
+    </div>
+
+    <!-- Page 10 -->
+    <div class="page">
+      <div class="quote">Tell me the days that I ran in your thoughts and tell me when he rested</div>
+    </div>
+
+    <!-- Page 11 -->
+    <div class="page">
+      <div class="quote">And if I don't, when you forget my voice, and my smile</div>
+    </div>
+
+    <!-- Page 12 -->
+    <div class="page">
+      <div class="quote">Let me rest on my grave behind your eyes, where the days we became one sleeps peacefully,<br><br>quiet but never gone.</div>
+    </div>
+
+    <!-- Page 13 -->
+    <div class="page">
+      <div class="quote">But if you find this while our hearts still yearn</div>
+    </div>
+
+    <!-- Page 14 -->
+    <div class="page">
+      <div class="quote">Keep me</div>
+    </div>
+
+    <!-- Page 15 -->
+    <div class="page">
+      <div class="quote">Reach out to me, because I really don't want to leave.<br><br>Hold my hands and speak "I see you".</div>
+    </div>
+
+     <!-- Page 16 -->
+    <div class="page">
+      <div class="quote">I love you.</div>
+    </div>
+
+    <div class="hint">Flip the pages.</div>
+  </div>
 
   <script>
-    /* --- Particle Canvas Animation --- */
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
+    const pages = document.querySelectorAll('.page');
+    const book = document.getElementById('book');
+    const counter = document.getElementById('counter');
+    const music = document.getElementById('bg-music');
+    
+    let currentPage = 0;
+    let musicStarted = false;
 
-    let particles = [];
-    const numParticles = 45;
+    // Fade music volume in gently
+    music.volume = 0;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class Particle {
-      constructor() {
-        this.reset();
-      }
-
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 1.8 + 0.4;
-        this.speedY = -(Math.random() * 0.25 + 0.05);
-        this.speedX = (Math.random() - 0.5) * 0.15;
-        this.alpha = Math.random() * 0.6 + 0.1;
-        this.maxAlpha = this.alpha;
-        this.fadeSpeed = Math.random() * 0.005 + 0.002;
-        this.color = Math.random() > 0.3 ? '#e0e8f6' : '#ffb380';
-      }
-
-      update() {
-        this.y += this.speedY;
-        this.x += this.speedX;
-        this.alpha += this.fadeSpeed;
-
-        if (this.alpha > this.maxAlpha || this.alpha < 0.05) {
-          this.fadeSpeed = -this.fadeSpeed;
-        }
-
-        if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
-          this.reset();
-          this.y = canvas.height + 10;
-        }
-      }
-
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, this.alpha);
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
+    function playAudio() {
+      if (!musicStarted) {
+        music.play().then(() => {
+          let vol = 0;
+          const fadeIn = setInterval(() => {
+            if (vol < 0.5) {
+              vol += 0.05;
+              music.volume = vol;
+            } else {
+              clearInterval(fadeIn);
+            }
+          }, 200);
+        }).catch(err => {
+          console.log("Audio play blocked by browser policy", err);
+        });
+        musicStarted = true;
       }
     }
 
-    for (let i = 0; i < numParticles; i++) {
-      particles.push(new Particle());
-    }
+    book.addEventListener('click', () => {
+      // Trigger music on the very first page flip
+      playAudio();
 
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
+      // Turn page
+      pages[currentPage].classList.remove('active');
+      currentPage = (currentPage + 1) % pages.length;
+      pages[currentPage].classList.add('active');
+
+      // Update page counter
+      counter.textContent = `${currentPage + 1} / ${pages.length}`;
+    });
   </script>
 </body>
 </html>
