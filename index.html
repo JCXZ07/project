@@ -1,111 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reverence</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Reverence</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital@0;1&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0d0a14;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Cormorant Garamond', serif;
+            color: #2c2523;
+        }
+
+        /* Ambient Dreamy Background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #2a1f3d 0%, #0d0a14 100%);
+            z-index: 1;
+        }
+
+        /* Canvas for magical floating particles */
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* 3D Book Container */
+        .book-container {
+            position: relative;
+            width: 420px;
+            height: 580px;
+            z-index: 3;
+            perspective: 2000px;
+        }
+
+        .book {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+                        0 0 40px rgba(212, 175, 55, 0.1);
+            border-radius: 4px;
+        }
+
+        /* Individual Pages */
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* Front and Back of Each Page */
+        .page-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: linear-gradient(135deg, #fbf7f0 0%, #f3e9d9 100%);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: inset 0 0 30px rgba(110, 80, 50, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-left: 3px solid rgba(80, 60, 40, 0.15);
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* Spine Shadow Overlay */
+        .page-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 25px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.15), transparent);
+            pointer-events: none;
+        }
+
+        .page-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(-135deg, #f8f2e6 0%, #ebdcc7 100%);
+            border-radius: 6px 0 0 6px;
+        }
+
+        .page-back::before {
+            left: auto;
+            right: 0;
+            background: linear-gradient(to left, rgba(0, 0, 0, 0.15), transparent);
+        }
+
+        /* Flipped State */
+        .page.flipped {
+            transform: rotateY(-180deg);
+        }
+
+        /* Cover Page Styling */
+        .cover {
+            background: linear-gradient(135deg, #2c1a30 0%, #170d1a 100%);
+            border: 2px solid #b89758;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            color: #e2c993;
+        }
+
+        .cover h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(226, 201, 147, 0.3);
+        }
+
+        .cover p {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .cover .click-hint {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            text-transform: none;
+            font-style: italic;
+            animation: pulse 2s infinite;
+        }
+
+        /* Typography Inside Pages */
+        .quote {
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: #382e2b;
+            font-weight: 400;
+            white-space: pre-line;
+            text-shadow: 0 0 1px rgba(0,0,0,0.05);
+        }
+
+        .date-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
+            color: #614d42;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 25px;
+            font-size: 0.8rem;
+            color: #a39282;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        @media (max-width: 480px) {
+            .book-container {
+                width: 320px;
+                height: 480px;
+            }
+            .quote {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Background Fireflies Canvas -->
-  <canvas id="fireflies"></canvas>
+    <div class="background"></div>
+    <canvas id="canvas"></canvas>
 
-  <!-- Ambient Glow Effect -->
-  <div class="glow"></div>
-
-  <!-- Audio Element -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="https://assets.mixkit.co/music/preview/mixkit-sad-reflective-piano-1126.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Book Container -->
-  <div class="book-container" id="book">
-    <div class="counter" id="counter">1 / 16</div>
-
-    <!-- Page 1 -->
-    <div class="page active">
-      <div class="date">17 / 09 / 26</div>
+    <div class="book-container">
+        <div class="book" id="book">
+            <!-- Pages will be dynamically generated by JS -->
+        </div>
     </div>
 
-    <!-- Page 2 -->
-    <div class="page">
-      <div class="quote">If you find this far in the future, i left<br>this was my reverence.<br><br><i>dearest, xina</i></div>
-    </div>
+    <script>
+        const quotes = [
+            "17/09/26",
+            "If you find this far in the future, i left\nthis was my reverence.\n\ndearest, xina",
+            "There may come a morning\nwhen the ghost of my touch\nwill linger on your skin",
+            "When your hands may reach\nand closes on air and dust",
+            "I will be the past rooms and spaces where our feelings and moments are stored,\nthe hallways, paths, and roads that we walked together,\nthe final quiet rest when a voice no longer answers back",
+            "Like being far beneath your feet, I am resting quietly and blankly, covered by the passage of time i am a dormant seed",
+            "Do not find me to validate our past. You are the evidence. There are things your hands remember simply because they once knew the name of mine",
+            "To live is to carry the ghosts of people who are still breathing.",
+            "If i wake again, tell me everything you've been through",
+            "Tell me the days that I ran in your thoughts and tell me when he rested",
+            "And if I don't, when you forget my voice, and my smile",
+            "Let me rest on my grave behind your eyes, where the days we became one sleeps peacefully,\nquiet but never gone.",
+            "But if you find this while our hearts still yearn",
+            "Keep me",
+            "Reach out to me, because I really don't want to leave.",
+            "Hold my hands and speak \"I see you\"",
+            "I love you."
+        ];
 
-    <!-- Page 3 -->
-    <div class="page">
-      <div class="quote">There may come a morning<br>when the ghost of my touch<br>will linger on your skin</div>
-    </div>
+        const book = document.getElementById('book');
+        let musicStarted = false;
+        let audioCtx, masterGain;
 
-    <!-- Page 4 -->
-    <div class="page">
-      <div class="quote">When your hands may reach<br>and closes on air and dust</div>
-    </div>
+        // Initialize Book Pages
+        function createBook() {
+            // Cover Page
+            const coverPage = document.createElement('div');
+            coverPage.className = 'page';
+            coverPage.style.zIndex = quotes.length + 2;
+            coverPage.innerHTML = `
+                <div class="page-face cover">
+                    <h1>REVERENCE</h1>
+                    <p>Dearest, Xina</p>
+                    <span class="click-hint">click to open</span>
+                </div>
+                <div class="page-face page-back"></div>
+            `;
+            book.appendChild(coverPage);
 
-    <!-- Page 5 -->
-    <div class="page">
-      <div class="quote">I will be the past rooms and spaces where our feelings and moments are stored,<br><br>the hallways, paths, and roads that we walked together,<br><br>the final quiet rest when a voice no longer answers back</div>
-    </div>
+            // Quote Pages
+            quotes.forEach((text, index) => {
+                const page = document.createElement('div');
+                page.className = 'page';
+                page.style.zIndex = quotes.length - index;
 
-    <!-- Page 6 -->
-    <div class="page">
-      <div class="quote">Like being far beneath your feet, I am resting quietly and blankly, covered by the passage of time i am a dormant seed</div>
-    </div>
+                const isDate = index === 0;
+                const quoteClass = isDate ? 'quote date-quote' : 'quote';
 
-    <!-- Page 7 -->
-    <div class="page">
-      <div class="quote">Do not find me to validate our past. You are the evidence.<br><br>There are things your hands remember simply because they once knew the name of mine</div>
-    </div>
+                page.innerHTML = `
+                    <div class="page-face">
+                        <div class="${quoteClass}">${text}</div>
+                        <div class="page-number">- ${index + 1} -</div>
+                    </div>
+                    <div class="page-face page-back"></div>
+                `;
+                book.appendChild(page);
+            });
+        }
 
-    <!-- Page 8 -->
-    <div class="page">
-      <div class="quote">To live is to carry the ghosts of people who are still breathing.</div>
-    </div>
+        createBook();
 
-    <!-- Page 9 -->
-    <div class="page">
-      <div class="quote">If i wake again, tell me everything you've been through</div>
-    </div>
+        const pages = document.querySelectorAll('.page');
+        let currentPageIndex = 0;
 
-    <!-- Page 10 -->
-    <div class="page">
-      <div class="quote">Tell me the days that I ran in your thoughts and tell me when he rested</div>
-    </div>
+        // Handle Page Flip Click
+        pages.forEach((page, index) => {
+            page.addEventListener('click', () => {
+                if (!musicStarted) {
+                    startDreamyMusic();
+                    musicStarted = true;
+                }
 
-    <!-- Page 11 -->
-    <div class="page">
-      <div class="quote">And if I don't, when you forget my voice, and my smile</div>
-    </div>
+                if (index === currentPageIndex) {
+                    page.classList.add('flipped');
+                    // Bring flipped page under active stack hierarchy
+                    setTimeout(() => {
+                        page.style.zIndex = index + 1;
+                    }, 300);
+                    currentPageIndex++;
+                } else if (index === currentPageIndex - 1) {
+                    page.classList.remove('flipped');
+                    page.style.zIndex = quotes.length + 2 - index;
+                    currentPageIndex--;
+                }
+            });
+        });
 
-    <!-- Page 12 -->
-    <div class="page">
-      <div class="quote">Let me rest on my grave behind your eyes, where the days we became one sleeps peacefully,<br><br>quiet but never gone.</div>
-    </div>
+        // Generates Ambient Synthesized Music (No external audio files needed)
+        function startDreamyMusic() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
 
-    <!-- Page 13 -->
-    <div class="page">
-      <div class="quote">But if you find this while our hearts still yearn</div>
-    </div>
+            masterGain = audioCtx.createGain();
+            masterGain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+            masterGain.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 4);
+            masterGain.connect(audioCtx.destination);
 
-    <!-- Page 14 -->
-    <div class="page">
-      <div class="quote">Keep me</div>
-    </div>
+            // Pentatonic scale frequencies for a dreamy ethereal harmonic pad
+            const notes = [130.81, 146.83, 164.81, 196.00, 220.00, 261.63, 293.66, 329.63]; 
 
-    <!-- Page 15 -->
-    <div class="page">
-      <div class="quote">Reach out to me, because I really don't want to leave.<br><br>Hold my hands and speak "I see you"</div>
-    </div>
+            function playDreamChord() {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
 
-    <!-- Page 16 -->
-    <div class="page">
-      <div class="quote">I love you.</div>
-    </div>
+                // Pick 3 random harmonious notes
+                const chord = [
+                    notes[Math.floor(Math.random() * notes.length)],
+                    notes[Math.floor(Math.random() * notes.length)],
+                    notes[Math.floor(Math.random() * notes.length)]
+                ];
 
-    <div class="hint">Flip the pages</div>
-  </div>
+                chord.forEach(freq => {
+                    const osc = audioCtx.createOscillator();
+                    const noteGain = audioCtx.createGain();
 
-  <script src="script.js"></script>
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                    // Soft attack and decay envelope
+                    noteGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+                    noteGain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 3);
+                    noteGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 8);
+
+                    osc.connect(noteGain);
+                    noteGain.connect(masterGain);
+
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 8.5);
+                });
+            }
+
+            playDreamChord();
+            setInterval(playDreamChord, 5000);
+        }
+
+        // Floating Dust/Light Particles
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = -Math.random() * 0.3 - 0.1;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+                    this.reset();
+                    this.y = canvas.height;
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(226, 201, 147, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = Array.from({ length: 65 }, () => new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+    </script>
 </body>
 </html>
