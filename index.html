@@ -4,144 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reverence</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300&display=swap');
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #0b0c10;
-      background-image: radial-gradient(circle at center, #1a1c24 0%, #08080a 100%);
-      color: #e2e2e8;
-      font-family: 'Cormorant Garamond', serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      perspective: 1000px;
-    }
-
-    /* Ambient background glow */
-    .glow {
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(138, 122, 156, 0.15) 0%, rgba(0,0,0,0) 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      animation: pulse 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.8); opacity: 0.5; }
-      100% { transform: scale(1.2); opacity: 0.9; }
-    }
-
-    /* Book Container */
-    .book-container {
-      position: relative;
-      width: 340px;
-      height: 480px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.03);
-      border-radius: 4px;
-      background: rgba(20, 21, 26, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    /* Pages Stack */
-    .page {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      padding: 40px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      opacity: 0;
-      visibility: hidden;
-      transform: rotateY(-10deg) scale(0.95);
-      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
-                  transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-                  visibility 1.2s;
-    }
-
-    .page.active {
-      opacity: 1;
-      visibility: visible;
-      transform: rotateY(0deg) scale(1);
-    }
-
-    /* Text Formatting */
-    .quote {
-      font-size: 1.35rem;
-      font-weight: 300;
-      line-height: 1.8;
-      letter-spacing: 0.03em;
-      color: #dcdbe5;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-      white-space: pre-line;
-    }
-
-    .date {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.3em;
-      color: #8a8899;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
-
-    /* Navigation Hint */
-    .hint {
-      position: absolute;
-      bottom: 20px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: rgba(255, 255, 255, 0.3);
-      text-transform: uppercase;
-      pointer-events: none;
-      animation: fadeInOut 3s infinite;
-    }
-
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.6; }
-    }
-
-    /* Page Counter */
-    .counter {
-      position: absolute;
-      top: 20px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: rgba(255, 255, 255, 0.2);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- Background Fireflies Canvas -->
+  <canvas id="fireflies"></canvas>
+
+  <!-- Ambient Glow Effect -->
   <div class="glow"></div>
 
-  <!-- Audio Element: Replace the src link with your desired MP3 file -->
+  <!-- Audio Element -->
   <audio id="bg-music" loop preload="auto">
     <source src="https://assets.mixkit.co/music/preview/mixkit-sad-reflective-piano-1126.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Book Container -->
   <div class="book-container" id="book">
-    <div class="counter" id="counter">1 / 15</div>
+    <div class="counter" id="counter">1 / 16</div>
 
     <!-- Page 1 -->
     <div class="page active">
@@ -218,57 +98,14 @@
       <div class="quote">Reach out to me, because I really don't want to leave.<br><br>Hold my hands and speak "I see you".</div>
     </div>
 
-     <!-- Page 16 -->
+    <!-- Page 16 -->
     <div class="page">
       <div class="quote">I love you.</div>
     </div>
 
-    <div class="hint">Flip the pages.</div>
+    <div class="hint">Flip the pages</div>
   </div>
 
-  <script>
-    const pages = document.querySelectorAll('.page');
-    const book = document.getElementById('book');
-    const counter = document.getElementById('counter');
-    const music = document.getElementById('bg-music');
-    
-    let currentPage = 0;
-    let musicStarted = false;
-
-    // Fade music volume in gently
-    music.volume = 0;
-
-    function playAudio() {
-      if (!musicStarted) {
-        music.play().then(() => {
-          let vol = 0;
-          const fadeIn = setInterval(() => {
-            if (vol < 0.5) {
-              vol += 0.05;
-              music.volume = vol;
-            } else {
-              clearInterval(fadeIn);
-            }
-          }, 200);
-        }).catch(err => {
-          console.log("Audio play blocked by browser policy", err);
-        });
-        musicStarted = true;
-      }
-    }
-
-    book.addEventListener('click', () => {
-      // Trigger music on the very first page flip
-      playAudio();
-
-      // Turn page
-      pages[currentPage].classList.remove('active');
-      currentPage = (currentPage + 1) % pages.length;
-      pages[currentPage].classList.add('active');
-
-      // Update page counter
-      counter.textContent = `${currentPage + 1} / ${pages.length}`;
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
