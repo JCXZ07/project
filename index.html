@@ -56,9 +56,9 @@
             font-family: "Cormorant Garamond", serif;
         }
 
-        /* --------------------------------
+        /* ==========================================
            ATMOSPHERIC BACKGROUND
-        -------------------------------- */
+        ========================================== */
 
         .background {
             position: fixed;
@@ -87,6 +87,7 @@
 
         .background::after {
             content: "";
+
             position: absolute;
             inset: 0;
 
@@ -103,18 +104,18 @@
 
             background-size: 70px 70px;
 
-            mask-image: radial-gradient(
-                ellipse at center,
-                black,
-                transparent 75%
-            );
+            mask-image:
+                radial-gradient(
+                    ellipse at center,
+                    black,
+                    transparent 75%
+                );
         }
-
-        /* Vignette */
 
         .vignette {
             position: fixed;
             inset: 0;
+
             z-index: 5;
 
             pointer-events: none;
@@ -127,9 +128,9 @@
                 );
         }
 
-        /* --------------------------------
+        /* ==========================================
            PARTICLES
-        -------------------------------- */
+        ========================================== */
 
         #canvas {
             position: fixed;
@@ -143,9 +144,9 @@
             pointer-events: none;
         }
 
-        /* --------------------------------
+        /* ==========================================
            BOOK
-        -------------------------------- */
+        ========================================== */
 
         .book-container {
             position: relative;
@@ -167,13 +168,17 @@
             transform-style: preserve-3d;
 
             filter:
-                drop-shadow(0 35px 40px rgba(0,0,0,0.75))
-                drop-shadow(0 0 35px rgba(194,118,139,0.08));
+                drop-shadow(
+                    0 35px 40px rgba(0,0,0,0.75)
+                )
+                drop-shadow(
+                    0 0 35px rgba(194,118,139,0.08)
+                );
         }
 
-        /* --------------------------------
+        /* ==========================================
            PAGES
-        -------------------------------- */
+        ========================================== */
 
         .page {
             position: absolute;
@@ -188,7 +193,8 @@
             transform-style: preserve-3d;
 
             transition:
-                transform 1.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+                transform 1.35s
+                cubic-bezier(0.645, 0.045, 0.355, 1);
 
             cursor: pointer;
 
@@ -234,6 +240,10 @@
             box-shadow:
                 inset 15px 0 30px rgba(0,0,0,0.18),
                 inset -8px 0 25px rgba(0,0,0,0.25);
+
+            transition:
+                background 1.2s ease,
+                border-color 1.2s ease;
         }
 
         /* Paper grain */
@@ -313,9 +323,9 @@
             transform: rotateY(-180deg);
         }
 
-        /* --------------------------------
+        /* ==========================================
            COVER
-        -------------------------------- */
+        ========================================== */
 
         .cover {
             position: relative;
@@ -436,8 +446,6 @@
             text-transform: uppercase;
 
             color: #97858b;
-
-            font-style: normal;
         }
 
         .cover-heart {
@@ -449,7 +457,8 @@
 
             opacity: 0.75;
 
-            animation: heartbeat 3s ease-in-out infinite;
+            animation:
+                heartbeat 3s ease-in-out infinite;
         }
 
         .click-hint {
@@ -465,12 +474,13 @@
 
             font-style: italic;
 
-            animation: breathe 2.5s ease-in-out infinite;
+            animation:
+                breathe 2.5s ease-in-out infinite;
         }
 
-        /* --------------------------------
+        /* ==========================================
            LETTER TYPOGRAPHY
-        -------------------------------- */
+        ========================================== */
 
         .quote {
             position: relative;
@@ -535,20 +545,17 @@
             color: #625960;
         }
 
-        /* --------------------------------
-           LITTLE ORNAMENT
-        -------------------------------- */
-
         .ornament {
             position: absolute;
 
             top: 34px;
-
             left: 50%;
 
-            transform: translateX(-50%);
+            transform:
+                translateX(-50%);
 
-            color: rgba(201,143,157,0.55);
+            color:
+                rgba(201,143,157,0.55);
 
             font-size: 11px;
 
@@ -557,9 +564,62 @@
             z-index: 4;
         }
 
-        /* --------------------------------
+        /* ==========================================
+           CONFESSION SECTION
+        ========================================== */
+
+        .page.confession .page-face {
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgba(153,83,105,0.16),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    #21171e,
+                    #110e13
+                );
+
+            border-color:
+                rgba(201,143,157,0.13);
+        }
+
+        .page.confession .quote {
+            color: #f1e5e8;
+
+            text-shadow:
+                0 1px 2px rgba(0,0,0,0.55);
+        }
+
+        .page.confession .quote::first-letter {
+            color: #d8a0ad;
+        }
+
+        .confession-label {
+            position: absolute;
+
+            top: 35px;
+
+            z-index: 4;
+
+            font-family:
+                "Playfair Display", serif;
+
+            font-size: 0.58rem;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+            color: #8d6873;
+
+            opacity: 0.8;
+        }
+
+        /* ==========================================
            PROGRESS
-        -------------------------------- */
+        ========================================== */
 
         .progress {
             position: fixed;
@@ -569,7 +629,8 @@
             bottom: 24px;
             left: 50%;
 
-            transform: translateX(-50%);
+            transform:
+                translateX(-50%);
 
             display: flex;
 
@@ -603,9 +664,9 @@
                 0 0 8px rgba(201,143,157,0.5);
         }
 
-        /* --------------------------------
-           NAVIGATION HINT
-        -------------------------------- */
+        /* ==========================================
+           NAVIGATION
+        ========================================== */
 
         .navigation {
             position: fixed;
@@ -620,7 +681,8 @@
 
             justify-content: space-between;
 
-            transform: translateY(-50%);
+            transform:
+                translateY(-50%);
 
             pointer-events: none;
 
@@ -634,18 +696,20 @@
 
             opacity: 0;
 
-            transition: opacity 0.6s ease;
+            transition:
+                opacity 0.6s ease;
         }
 
         .navigation.visible {
             opacity: 0.5;
         }
 
-        /* --------------------------------
+        /* ==========================================
            ANIMATIONS
-        -------------------------------- */
+        ========================================== */
 
         @keyframes breathe {
+
             0%, 100% {
                 opacity: 0.3;
                 transform: translateY(0);
@@ -658,6 +722,7 @@
         }
 
         @keyframes heartbeat {
+
             0%, 100% {
                 transform: scale(1);
             }
@@ -679,9 +744,9 @@
             }
         }
 
-        /* --------------------------------
-           RESPONSIVE
-        -------------------------------- */
+        /* ==========================================
+           MOBILE
+        ========================================== */
 
         @media (max-width: 600px) {
 
@@ -708,7 +773,9 @@
 
             .quote {
                 font-size: 1.17rem;
+
                 line-height: 1.7;
+
                 max-width: 290px;
             }
 
@@ -746,9 +813,15 @@
             *,
             *::before,
             *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
             }
         }
     </style>
@@ -762,7 +835,10 @@
 
     <div class="vignette"></div>
 
-    <!-- Your music -->
+    <!-- ==========================================
+         BACKGROUND MUSIC
+    ========================================== -->
+
     <audio
         id="bgMusic"
         src="mysong.mp3"
@@ -770,22 +846,50 @@
         loop>
     </audio>
 
+
+    <!-- ==========================================
+         BOOK
+    ========================================== -->
+
     <div class="book-container">
-        <div class="book" id="book"></div>
+
+        <div
+            class="book"
+            id="book">
+        </div>
+
     </div>
 
-    <div class="navigation" id="navigation">
+
+    <!-- ==========================================
+         NAVIGATION
+    ========================================== -->
+
+    <div
+        class="navigation"
+        id="navigation">
+
         <span>← previous</span>
+
         <span>next →</span>
+
     </div>
 
-    <div class="progress" id="progress"></div>
+
+    <!-- ==========================================
+         PROGRESS
+    ========================================== -->
+
+    <div
+        class="progress"
+        id="progress">
+    </div>
 
 
     <script>
 
         /* ==========================================
-           LETTER CONTENT
+           LETTER
         ========================================== */
 
         const quotes = [
@@ -861,35 +965,261 @@ sleep peacefully.`,
 
             `Quiet.`,
 
-            `But never away.`
+            `But never away.`,
+
+            /* =====================================
+               THE CONFESSION
+            ===================================== */
+
+            `But if you find this
+
+and I am still here,
+
+then perhaps these words
+were never meant to be
+a goodbye.`,
+
+            `Perhaps they were only
+the words I was too afraid
+to say while you were
+standing right in front of me.`,
+
+            `So let me confess something.
+
+I have admired you
+since the moment I met you.
+
+Not loudly.
+Not in a way
+that demanded to be noticed.
+
+But quietly,
+
+in all the little ways
+a person can admire another.`,
+
+            `I admired the way
+you carry yourself,
+
+the way you speak,
+the way you think,
+
+the little expressions
+you probably never notice
+you make.`,
+
+            `I admired the things
+you thought were ordinary.
+
+The way you laugh.
+The way you become excited
+about something you love.
+
+The way your eyes change
+when you talk about
+something that matters to you.`,
+
+            `And somewhere along the way,
+
+admiring you
+became something more.
+
+I began remembering
+the smallest things about you.
+
+Things I had no reason
+to remember,
+
+except that they were yours.`,
+
+            `I don't know
+if you ever realized
+how much space
+you occupied in my thoughts.
+
+How often something small
+would happen,
+
+and my first thought
+would be,
+
+"I wish I could tell you this."`,
+
+            `So if you find this
+while I am still here,
+
+then this is my confession:
+
+I admired you
+long before I knew
+how to admit it.
+
+And perhaps
+I still do.`,
+
+            `Maybe I never needed
+anything from you.
+
+Maybe I only wanted you
+to know
+
+that somewhere,
+at some point,
+
+there was someone
+who looked at you
+and thought,
+
+"How lucky I am
+to have met you."`,
+
+            `And if you ask me
+when it began,
+
+I wouldn't know
+how to give you a date.
+
+Because I don't remember
+the exact moment
+I started admiring you.
+
+I only remember
+that one day,
+
+I realized
+I already had.`,
+
+            `So here I am,
+
+leaving these words
+where you might someday
+find them.
+
+Not as a promise.
+Not as a request.
+
+Just the truth
+I was too afraid
+to say aloud.`,
+
+            `I admired you.
+
+I still admire you.
+
+And if you are reading this
+while I am still here,
+
+then maybe,
+
+just maybe,
+
+I finally found
+the courage to tell you.`,
+
+            `You were never
+just a moment to me.
+
+You were someone
+I quietly carried
+with me.
+
+And perhaps
+that is what love
+looks like sometimes—
+
+not possession,
+
+not certainty,
+
+but simply being grateful
+that someone exists.`,
+
+            `So if I never said it
+properly before,
+
+let me say it now:
+
+I am glad
+I met you.
+
+I am glad
+I got to know you.
+
+And I am endlessly grateful
+that, for a little while,
+
+my life happened
+to cross yours.`,
+
+            `And if you are still here,
+
+then stay for a moment.
+
+Let me look at you
+without pretending
+that I don't feel anything.
+
+Let me finally say
+what I should have said
+long ago.`,
+
+            `I admire you.
+
+More than I ever knew
+how to put into words.
+
+And this,
+
+perhaps,
+
+is the closest
+I have ever come
+to saying it.`,
+
+            `Always yours,
+
+never mine.`
 
         ];
 
 
         /* ==========================================
-           BOOK CREATION
+           ELEMENTS
         ========================================== */
 
-        const book = document.getElementById("book");
-        const audio = document.getElementById("bgMusic");
-        const progress = document.getElementById("progress");
-        const navigation = document.getElementById("navigation");
+        const book =
+            document.getElementById("book");
+
+        const audio =
+            document.getElementById("bgMusic");
+
+        const progress =
+            document.getElementById("progress");
+
+        const navigation =
+            document.getElementById("navigation");
+
 
         let musicStarted = false;
+
         let currentPageIndex = 0;
 
 
+        /* ==========================================
+           CREATE BOOK
+        ========================================== */
+
         function createBook() {
 
-            /*
-             * COVER
-             */
+            /* COVER */
 
-            const coverPage = document.createElement("div");
+            const coverPage =
+                document.createElement("div");
 
             coverPage.className = "page";
 
-            coverPage.style.zIndex = quotes.length + 2;
+            coverPage.style.zIndex =
+                quotes.length + 2;
 
             coverPage.innerHTML = `
 
@@ -901,7 +1231,9 @@ sleep peacefully.`,
 
                         <div class="small-line"></div>
 
-                        <h1>For Your Eyes Only</h1>
+                        <h1>
+                            For Your Eyes Only
+                        </h1>
 
                         <div class="cover-script">
                             Dearest, Xina
@@ -929,20 +1261,38 @@ sleep peacefully.`,
             book.appendChild(coverPage);
 
 
-            /*
-             * LETTER PAGES
-             */
+            /* LETTER PAGES */
 
             quotes.forEach((text, index) => {
 
-                const page = document.createElement("div");
-
-                page.className = "page";
-
-                page.style.zIndex = quotes.length - index;
+                const page =
+                    document.createElement("div");
 
 
-                const isDate = index === 0;
+                /*
+                 * Pages 14 onward are the
+                 * warmer confession section.
+                 */
+
+                if (index >= 14) {
+
+                    page.className =
+                        "page confession";
+
+                } else {
+
+                    page.className =
+                        "page";
+                }
+
+
+                page.style.zIndex =
+                    quotes.length - index;
+
+
+                const isDate =
+                    index === 0;
+
 
                 const quoteClass =
                     isDate
@@ -950,21 +1300,24 @@ sleep peacefully.`,
                         : "quote";
 
 
-                /*
-                 * Add a signature-style ending
-                 * to the final page.
-                 */
+                const confessionLabel =
+                    index >= 14
+                        ? `
+                            <div class="confession-label">
+                                a confession
+                            </div>
+                        `
+                        : "";
 
-                let extra = "";
 
-                if (index === quotes.length - 1) {
-
-                    extra = `
-                        <div class="signature">
-                            — always
-                        </div>
-                    `;
-                }
+                const signature =
+                    index === quotes.length - 1
+                        ? `
+                            <div class="signature">
+                                — always
+                            </div>
+                        `
+                        : "";
 
 
                 page.innerHTML = `
@@ -975,11 +1328,13 @@ sleep peacefully.`,
                             · · ·
                         </div>
 
+                        ${confessionLabel}
+
                         <div class="${quoteClass}">
                             ${text}
                         </div>
 
-                        ${extra}
+                        ${signature}
 
                         <div class="page-number">
                             ${String(index + 1).padStart(2, "0")}
@@ -988,44 +1343,62 @@ sleep peacefully.`,
                     </div>
 
                     <div class="page-face page-back"></div>
+
                 `;
 
+
                 book.appendChild(page);
+
             });
+
         }
 
 
         createBook();
 
 
-        const pages = document.querySelectorAll(".page");
+        const pages =
+            document.querySelectorAll(".page");
 
 
         /* ==========================================
-           PROGRESS INDICATORS
+           PROGRESS DOTS
         ========================================== */
 
         function createProgress() {
 
             progress.innerHTML = "";
 
+
             /*
-             * Cover + letter pages
+             * Cover + all letter pages.
              */
 
-            for (let i = 0; i <= quotes.length; i++) {
+            for (
+                let i = 0;
+                i <= quotes.length;
+                i++
+            ) {
 
                 const dot =
                     document.createElement("div");
 
-                dot.className = "progress-dot";
+
+                dot.className =
+                    "progress-dot";
+
 
                 if (i === 0) {
+
                     dot.classList.add("active");
+
                 }
 
+
                 progress.appendChild(dot);
+
             }
+
         }
 
 
@@ -1035,7 +1408,10 @@ sleep peacefully.`,
         function updateProgress() {
 
             const dots =
-                document.querySelectorAll(".progress-dot");
+                document.querySelectorAll(
+                    ".progress-dot"
+                );
+
 
             dots.forEach((dot, index) => {
 
@@ -1043,18 +1419,24 @@ sleep peacefully.`,
                     "active",
                     index === currentPageIndex
                 );
+
             });
 
 
-            /*
-             * Show navigation after the cover.
-             */
-
             if (currentPageIndex > 0) {
-                navigation.classList.add("visible");
+
+                navigation.classList.add(
+                    "visible"
+                );
+
             } else {
-                navigation.classList.remove("visible");
+
+                navigation.classList.remove(
+                    "visible"
+                );
+
             }
+
         }
 
 
@@ -1066,19 +1448,25 @@ sleep peacefully.`,
 
             if (musicStarted) return;
 
+
             audio.volume = 0.45;
+
 
             audio.play()
                 .then(() => {
+
                     musicStarted = true;
+
                 })
                 .catch(() => {
+
                     /*
-                     * Some browsers may still block
-                     * autoplay. The next interaction
-                     * will try again.
+                     * Browser autoplay restrictions
+                     * are handled by the next click.
                      */
+
                 });
+
         }
 
 
@@ -1088,88 +1476,142 @@ sleep peacefully.`,
 
         function turnPage(index) {
 
-            if (index === currentPageIndex) {
+            /* FORWARD */
 
-                const page = pages[index];
+            if (
+                index === currentPageIndex
+            ) {
+
+                const page =
+                    pages[index];
+
 
                 if (!page) return;
 
-                page.classList.add("flipped");
+
+                page.classList.add(
+                    "flipped"
+                );
+
 
                 setTimeout(() => {
 
-                    page.style.zIndex = index + 1;
+                    page.style.zIndex =
+                        index + 1;
 
                 }, 400);
 
+
                 currentPageIndex++;
+
 
                 updateProgress();
 
                 startMusic();
+
             }
 
-            else if (index === currentPageIndex - 1) {
 
-                const page = pages[index];
+            /* BACKWARD */
+
+            else if (
+                index === currentPageIndex - 1
+            ) {
+
+                const page =
+                    pages[index];
+
 
                 if (!page) return;
 
-                page.classList.remove("flipped");
+
+                page.classList.remove(
+                    "flipped"
+                );
+
 
                 page.style.zIndex =
                     quotes.length + 2 - index;
 
+
                 currentPageIndex--;
 
+
                 updateProgress();
+
             }
+
         }
 
 
-        pages.forEach((page, index) => {
+        pages.forEach(
+            (page, index) => {
 
-            page.addEventListener("click", () => {
+                page.addEventListener(
+                    "click",
+                    () => {
 
-                turnPage(index);
+                        turnPage(index);
 
-            });
+                    }
+                );
 
-        });
+            }
+        );
 
 
         /* ==========================================
-           KEYBOARD CONTROLS
+           KEYBOARD
         ========================================== */
 
-        document.addEventListener("keydown", (event) => {
+        document.addEventListener(
+            "keydown",
+            (event) => {
 
-            if (
-                event.key === "ArrowRight" ||
-                event.key === " " ||
-                event.key === "Enter"
-            ) {
+                if (
+                    event.key === "ArrowRight" ||
+                    event.key === " " ||
+                    event.key === "Enter"
+                ) {
 
-                event.preventDefault();
+                    event.preventDefault();
 
-                if (currentPageIndex < pages.length) {
 
-                    turnPage(currentPageIndex);
+                    if (
+                        currentPageIndex <
+                        pages.length
+                    ) {
+
+                        turnPage(
+                            currentPageIndex
+                        );
+
+                    }
+
                 }
-            }
 
 
-            if (event.key === "ArrowLeft") {
+                if (
+                    event.key === "ArrowLeft"
+                ) {
 
-                event.preventDefault();
+                    event.preventDefault();
 
-                if (currentPageIndex > 0) {
 
-                    turnPage(currentPageIndex - 1);
+                    if (
+                        currentPageIndex > 0
+                    ) {
+
+                        turnPage(
+                            currentPageIndex - 1
+                        );
+
+                    }
+
                 }
-            }
 
-        });
+            }
+        );
 
 
         /* ==========================================
@@ -1178,42 +1620,79 @@ sleep peacefully.`,
 
         let touchStartX = 0;
 
-        document.addEventListener("touchstart", (event) => {
 
-            touchStartX =
-                event.changedTouches[0].screenX;
+        document.addEventListener(
+            "touchstart",
+            (event) => {
 
-        }, { passive: true });
+                touchStartX =
+                    event.changedTouches[0]
+                        .screenX;
 
-
-        document.addEventListener("touchend", (event) => {
-
-            const touchEndX =
-                event.changedTouches[0].screenX;
-
-            const distance =
-                touchEndX - touchStartX;
-
-
-            if (Math.abs(distance) < 50) return;
-
-
-            if (distance < 0) {
-
-                if (currentPageIndex < pages.length) {
-
-                    turnPage(currentPageIndex);
-                }
-
-            } else {
-
-                if (currentPageIndex > 0) {
-
-                    turnPage(currentPageIndex - 1);
-                }
+            },
+            {
+                passive: true
             }
+        );
 
-        }, { passive: true });
+
+        document.addEventListener(
+            "touchend",
+            (event) => {
+
+                const touchEndX =
+                    event.changedTouches[0]
+                        .screenX;
+
+
+                const distance =
+                    touchEndX - touchStartX;
+
+
+                if (
+                    Math.abs(distance) < 50
+                ) return;
+
+
+                /* Swipe left */
+
+                if (distance < 0) {
+
+                    if (
+                        currentPageIndex <
+                        pages.length
+                    ) {
+
+                        turnPage(
+                            currentPageIndex
+                        );
+
+                    }
+
+                }
+
+
+                /* Swipe right */
+
+                else {
+
+                    if (
+                        currentPageIndex > 0
+                    ) {
+
+                        turnPage(
+                            currentPageIndex - 1
+                        );
+
+                    }
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
 
 
         /* ==========================================
@@ -1221,7 +1700,10 @@ sleep peacefully.`,
         ========================================== */
 
         const canvas =
-            document.getElementById("canvas");
+            document.getElementById(
+                "canvas"
+            );
+
 
         const ctx =
             canvas.getContext("2d");
@@ -1230,19 +1712,27 @@ sleep peacefully.`,
         function resizeCanvas() {
 
             const ratio =
-                Math.min(window.devicePixelRatio || 1, 2);
+                Math.min(
+                    window.devicePixelRatio || 1,
+                    2
+                );
+
 
             canvas.width =
                 window.innerWidth * ratio;
 
+
             canvas.height =
                 window.innerHeight * ratio;
+
 
             canvas.style.width =
                 window.innerWidth + "px";
 
+
             canvas.style.height =
                 window.innerHeight + "px";
+
 
             ctx.setTransform(
                 ratio,
@@ -1252,10 +1742,12 @@ sleep peacefully.`,
                 0,
                 0
             );
+
         }
 
 
         resizeCanvas();
+
 
         window.addEventListener(
             "resize",
@@ -1266,34 +1758,46 @@ sleep peacefully.`,
         class Particle {
 
             constructor() {
+
                 this.reset(true);
+
             }
 
 
             reset(initial = false) {
 
                 this.x =
-                    Math.random() * window.innerWidth;
+                    Math.random() *
+                    window.innerWidth;
+
 
                 this.y =
                     initial
-                        ? Math.random() * window.innerHeight
+                        ? Math.random() *
+                          window.innerHeight
                         : window.innerHeight + 10;
+
 
                 this.size =
                     Math.random() * 1.5 + 0.3;
 
+
                 this.speed =
                     Math.random() * 0.25 + 0.05;
 
+
                 this.drift =
-                    (Math.random() - 0.5) * 0.15;
+                    (Math.random() - 0.5)
+                    * 0.15;
+
 
                 this.alpha =
                     Math.random() * 0.35 + 0.05;
 
+
                 this.twinkle =
                     Math.random() * 0.02 + 0.005;
+
             }
 
 
@@ -1303,25 +1807,32 @@ sleep peacefully.`,
 
                 this.x += this.drift;
 
+
                 this.alpha +=
-                    Math.sin(Date.now() * this.twinkle)
-                    * 0.002;
+                    Math.sin(
+                        Date.now() *
+                        this.twinkle
+                    ) * 0.002;
 
 
                 if (
                     this.y < -10 ||
                     this.x < -20 ||
-                    this.x > window.innerWidth + 20
+                    this.x >
+                        window.innerWidth + 20
                 ) {
 
                     this.reset();
+
                 }
+
             }
 
 
             draw() {
 
                 ctx.beginPath();
+
 
                 ctx.arc(
                     this.x,
@@ -1331,21 +1842,33 @@ sleep peacefully.`,
                     Math.PI * 2
                 );
 
+
                 ctx.fillStyle =
-                    `rgba(232, 193, 202, ${Math.max(
-                        0.02,
-                        this.alpha
-                    )})`;
+                    `rgba(
+                        232,
+                        193,
+                        202,
+                        ${Math.max(
+                            0.02,
+                            this.alpha
+                        )}
+                    )`;
+
 
                 ctx.fill();
+
             }
+
         }
 
 
         const particles =
             Array.from(
-                { length: 85 },
-                () => new Particle()
+                {
+                    length: 85
+                },
+                () =>
+                    new Particle()
             );
 
 
@@ -1359,18 +1882,21 @@ sleep peacefully.`,
             );
 
 
-            particles.forEach((particle) => {
+            particles.forEach(
+                (particle) => {
 
-                particle.update();
+                    particle.update();
 
-                particle.draw();
+                    particle.draw();
 
-            });
+                }
+            );
 
 
             requestAnimationFrame(
                 animateParticles
             );
+
         }
 
 
